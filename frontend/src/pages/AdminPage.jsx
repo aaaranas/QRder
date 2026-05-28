@@ -14,7 +14,7 @@ export default function AdminPage() {
   const fetchOrders = useCallback(() => {
     setLoading(true);
     axios
-      .get("/api/orders")
+      .get(`${import.meta.env.VITE_API_URL}/api/orders`)
       .then(({ data }) => setOrders(data.data))
       .catch(() => toast.error("Failed to load orders"))
       .finally(() => setLoading(false));
@@ -29,7 +29,7 @@ export default function AdminPage() {
   const updateOrder = async (id, field, value) => {
     setUpdating(id + field);
     try {
-      await axios.patch(`/api/orders/${id}/status`, { [field]: value });
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/orders/${id}/status`, { [field]: value });
       setOrders((prev) =>
         prev.map((o) => (o.id === id ? { ...o, [field]: value } : o))
       );

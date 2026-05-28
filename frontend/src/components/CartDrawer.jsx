@@ -33,7 +33,7 @@ export default function CartDrawer() {
         notes,
         items: items.map((i) => ({ product_id: i.product_id, quantity: i.quantity })),
       };
-      const { data } = await axios.post("/api/orders", payload);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/orders`, payload);
       setOrderId(data.data.order_id);
       setStep("confirm");
       toast.success("Order placed! Proceed to payment.");
@@ -47,7 +47,7 @@ export default function CartDrawer() {
   const handlePay = async () => {
     setPaying(true);
     try {
-      await axios.post(`/api/orders/${orderId}/pay`, { method: payMethod });
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}/pay`, { method: payMethod });
       toast.success("🎉 Payment successful!");
       setStep("done");
       clearCart();

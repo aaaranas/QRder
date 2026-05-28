@@ -16,7 +16,7 @@ export default function MenuPage() {
 
   useEffect(() => {
     axios
-      .get("/api/products")
+      .get(`${import.meta.env.VITE_API_URL}/api/products`)
       .then(({ data }) => setProducts(data.data))
       .catch(() => toast.error("Failed to load menu"))
       .finally(() => setLoading(false));
